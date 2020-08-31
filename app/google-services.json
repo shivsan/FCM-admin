@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "762577859383",
+    "firebase_url": "https://shivkusanmessaging.firebaseio.com",
+    "project_id": "shivkusanmessaging",
+    "storage_bucket": "shivkusanmessaging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762577859383:android:1aafdd07fdb3457d3d20b2",
+        "android_client_info": {
+          "package_name": "com.shivku.shivkusanmessaging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762577859383-ij7j2hb2vh85njtv7unjbnvfe5t4hei7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSiZXBIb2XJ5RSwIgU6wpuP6rNN5w773E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762577859383-ij7j2hb2vh85njtv7unjbnvfe5t4hei7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
