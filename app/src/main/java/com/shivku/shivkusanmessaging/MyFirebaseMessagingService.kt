@@ -1,19 +1,15 @@
 package com.shivku.shivkusanmessaging
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.os.Build
-import com.google.firebase.messaging.FirebaseMessagingService
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.media.RingtoneManager
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.firebase.messaging.ktx.messaging
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -52,6 +48,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
+        Log.d(TAG, "Registering topic: $token")
+
+        Firebase.messaging.subscribeToTopic("FCMTopic")
+            .addOnCompleteListener { task ->
+                var msg = "Subscribed!"
+                if (!task.isSuccessful) {
+                    msg = "Could not subscribe!"
+                }
+                Log.d(TAG, msg)
+                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "Registered token:$token to topic: $token")
+            }
 
 
 //        sendRegistrationToServer(token)
