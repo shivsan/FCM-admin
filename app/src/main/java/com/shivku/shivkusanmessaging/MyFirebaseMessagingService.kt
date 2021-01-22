@@ -1,15 +1,18 @@
 package com.shivku.shivkusanmessaging
 
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.firebase.messaging.ktx.messaging
+
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -20,6 +23,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(TAG, "Message data payload: ${remoteMessage.data}")
             sendNotification(remoteMessage.data.toString())
+
+            val broadcaster = LocalBroadcastManager.getInstance(baseContext)
+
+            val intent = Intent(REQUEST_ACCEPT)
+            intent.putExtra("Key", remoteMessage.data.getValue("messageText"))
+            broadcaster.sendBroadcast(intent)
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+
 
 //            if (/* Check if data needs to be processed by long running job */ true) {
 //                // For long-running tasks (10 seconds or more) use WorkManager.
@@ -140,6 +151,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
 
+        val REQUEST_ACCEPT = "ACCEPT"
         private const val TAG = "MyFirebaseMsgService"
         const val NOTIFICATION_ID_DEFAULT = 1
         const val CHANNEL_ID_DEFAULT = "channel_id"
