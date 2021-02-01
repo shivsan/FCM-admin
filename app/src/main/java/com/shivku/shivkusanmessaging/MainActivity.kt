@@ -24,29 +24,33 @@ class MainActivity : AppCompatActivity() {
         helloTextView.text = "Rar"
 
         FirebaseInstanceId.getInstance().instanceId
-                .addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        Log.w(TAG, "getInstanceId failed", task.exception)
-                        return@OnCompleteListener
-                    }
-
-                    // Get new Instance ID token
-                    val token = task.result?.token
-
-                    // Log and toast
-                    val msg = "FCM Token $token"
-                    Log.d(TAG, msg)
-                })
-
-        Firebase.messaging.subscribeToTopic("1")
-            .addOnCompleteListener { task ->
-                var msg = "Subscribed in $TAG!"
+            .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    msg = "Could not subscribe! in $TAG"
+                    Log.w(TAG, "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
                 }
+
+                // Get new Instance ID token
+                val token = task.result?.token
+
+                // Log and toast
+                val msg = "FCM Token $token"
                 Log.d(TAG, msg)
-                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-            }
+
+                val helloTextView = findViewById<TextView>(R.id.text_view_id_token)
+                helloTextView.text = token
+            })
+
+        for (i in 1 until 20)
+            Firebase.messaging.subscribeToTopic(i.toString())
+                .addOnCompleteListener { task ->
+                    var msg = "Subscribed in $TAG!"
+                    if (!task.isSuccessful) {
+                        msg = "Could not subscribe! in $TAG"
+                    }
+                    Log.d(TAG, msg)
+                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                }
 
     }
 
@@ -68,10 +72,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val mTokenReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            // Get extra data included in the Intent
+            val message = intent.extras!!.toString()
+            Log.d("receiver", "Got token: $message")
+            var helloTextView = findViewById<TextView>(R.id.text_view_id_token)
+            helloTextView.text = message
+        }
+    }
+
     override fun onStop() {
         super.onStop()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver)
     }
+
     companion object {
 
         private const val TAG = "MainActivity"
