@@ -42,9 +42,9 @@ class MainActivity : AppCompatActivity() {
             })
 
         for (i in 1 until 20)
-            Firebase.messaging.subscribeToTopic(i.toString())
+            Firebase.messaging.subscribeToTopic("oa-$i")
                 .addOnCompleteListener { task ->
-                    var msg = "Subscribed in $TAG!"
+                    var msg = "Subscribed in $i!"
                     if (!task.isSuccessful) {
                         msg = "Could not subscribe! in $TAG"
                     }

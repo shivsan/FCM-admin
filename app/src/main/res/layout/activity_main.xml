@@ -20,6 +20,7 @@
         android:id="@+id/text_view_id_token"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Token!" />
+        android:text="Token!"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
