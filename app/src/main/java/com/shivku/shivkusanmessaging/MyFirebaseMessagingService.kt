@@ -27,7 +27,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val broadcaster = LocalBroadcastManager.getInstance(baseContext)
 
             val intent = Intent(REQUEST_ACCEPT)
-            intent.putExtra("Key", remoteMessage.data.getValue("messageText"))
+            intent.putExtra("Key", remoteMessage.data.getValue("content"))
             broadcaster.sendBroadcast(intent)
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 

@@ -22,5 +22,18 @@
         android:layout_height="wrap_content"
         android:text="Token!"
         tools:ignore="MissingConstraints" />
+    <Button
+        android:id="@+id/simpleButton1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="#00f"
+        android:hint="AbhiAndroid Button1"
+        android:padding="5dp"
+        android:textColorHint="#fff"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

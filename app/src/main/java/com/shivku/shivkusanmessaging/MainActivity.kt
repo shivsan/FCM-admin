@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +19,26 @@ import com.google.firebase.messaging.ktx.messaging
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var simpleButton1: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        simpleButton1 = findViewById<Button>(R.id.simpleButton1)
+
+        simpleButton1.setOnClickListener {
+            Log.w(TAG, "Subscribing to OA-25")
+
+            Firebase.messaging.subscribeToTopic("oa-25")
+                .addOnCompleteListener {
+                    Log.w(TAG, "Subscribing to OA-25")
+                }
+
+            Toast.makeText(applicationContext, "Simple Button 1", Toast.LENGTH_LONG)
+                .show() //display the text of button1
+        }
+
+
         var helloTextView = findViewById<TextView>(R.id.text_view_id)
         helloTextView.text = "Rar"
 
