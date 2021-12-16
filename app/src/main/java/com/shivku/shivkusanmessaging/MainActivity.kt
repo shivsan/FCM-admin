@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
             Firebase.messaging.subscribeToTopic("oa-25")
                 .addOnCompleteListener {
-                    Log.w(TAG, "Subscribing to OA-25")
+                    Log.w(TAG, "Subscribed successfully to OA-25")
                 }
 
             Toast.makeText(applicationContext, "Simple Button 1", Toast.LENGTH_LONG)
